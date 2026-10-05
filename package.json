@@ -1,0 +1,66 @@
+{
+  "name": "@ngera/caliper",
+  "version": "0.1.0",
+  "description": "A dark-first, dense CSS kit for data tools, admin panels and internal dashboards. No build step, no framework, no webfont.",
+  "keywords": [
+    "css",
+    "design-system",
+    "design-tokens",
+    "dark-mode",
+    "dashboard",
+    "admin-ui",
+    "data-table",
+    "accessibility",
+    "wcag",
+    "no-build"
+  ],
+  "license": "MIT",
+  "author": "Neeraj Gera",
+  "homepage": "https://github.com/ngera/caliper#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ngera/caliper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ngera/caliper/issues"
+  },
+  "type": "module",
+  "sideEffects": [
+    "*.css",
+    "./caliper.js"
+  ],
+  "main": "./caliper.css",
+  "style": "./caliper.css",
+  "exports": {
+    ".": "./caliper.css",
+    "./caliper.css": "./caliper.css",
+    "./accents.css": "./accents.css",
+    "./caliper.js": "./caliper.js",
+    "./icons.svg": "./icons.svg",
+    "./starter.html": "./starter.html",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "caliper.css",
+    "accents.css",
+    "caliper.js",
+    "icons.svg",
+    "starter.html",
+    "docs/THEME.md",
+    "tools/check-contrast.mjs",
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "check": "node tools/check-contrast.mjs",
+    "build": "node build.mjs",
+    "prepublishOnly": "node tools/check-contrast.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

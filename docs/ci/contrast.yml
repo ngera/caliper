@@ -1,0 +1,36 @@
+name: contrast
+
+# The palette is the contract. Every colour change re-runs the checker, which
+# exits non-zero if any ink/surface pair drops below WCAG AA in either theme.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Check every token pair, both themes
+        run: node tools/check-contrast.mjs
+
+      - name: Fail on a raw hex outside the token layer
+        # Colours belong in caliper.css and accents.css. A hex anywhere else
+        # means a value has leaked past the token layer, which is what breaks
+        # theming and rebranding.
+        run: |
+          if grep -rInE '#[0-9a-fA-F]{3}([0-9a-fA-F]{3})?\b' \
+               --include='*.html' \
+               --exclude='gallery.standalone.html' \
+               . ; then
+            echo "::error::raw hex found outside the token layer — use a var(--token)"
+            exit 1
+          fi
+          echo "no raw hex outside the token layer"
